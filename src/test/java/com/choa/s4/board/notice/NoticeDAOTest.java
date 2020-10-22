@@ -18,16 +18,21 @@ public class NoticeDAOTest extends MyTestCase {
 	@Autowired
 	private NoticeDAO noticeDAO;
 
-	@Test void getCountTest() throws Exception {
+	@Test 
+	public void getCountTest() throws Exception {
 		Pager pager = new Pager();
-		noticeDAO.getCount(pager);
+		long totalCount = noticeDAO.getCount(pager);
 		
+		assertNotNull(totalCount);
 	}
 	
 	@Test
 	public void setDeleteTest() throws Exception {
 		BoardDTO boardDTO = new BoardDTO();
-		noticeDAO.setDelete(boardDTO);
+		boardDTO.setNum(159);
+		int result = noticeDAO.setDelete(boardDTO);
+		
+		assertEquals(1, result);
 	}
 	
 	//@Test

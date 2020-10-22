@@ -17,17 +17,17 @@ public class NoticeService implements BoardService {
 	
 	@Override
 	public int setInsert(BoardDTO boardDTO) throws Exception {
-		return 0;
+		return noticeDAO.setInsert(boardDTO);
 	}
 
 	@Override
 	public int setUpdate(BoardDTO boardDTO) throws Exception {
-		return 0;
+		return noticeDAO.setUpdate(boardDTO);
 	}
 
 	@Override
 	public int setDelete(BoardDTO boardDTO) throws Exception {
-		return 0;
+		return noticeDAO.setDelete(boardDTO);
 	}
 
 	@Override
@@ -40,7 +40,7 @@ public class NoticeService implements BoardService {
 
 	@Override
 	public BoardDTO getOne(BoardDTO boardDTO) throws Exception {
-		return null;
+		return noticeDAO.getOne(boardDTO);
 	}
 
 }

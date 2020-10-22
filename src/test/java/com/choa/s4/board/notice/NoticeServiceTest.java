@@ -21,6 +21,7 @@ public class NoticeServiceTest extends MyTestCase {
 		Pager pager = new Pager();		
 		List<BoardDTO> ar = noticeService.getList(pager);
 		
+		System.out.println(ar.size());
 		assertEquals(10, ar.size());
 	}
 }

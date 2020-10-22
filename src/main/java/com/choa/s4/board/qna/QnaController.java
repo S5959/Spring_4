@@ -1,4 +1,4 @@
-package com.choa.s4.board.notice;
+package com.choa.s4.board.qna;
 
 import java.util.List;
 
@@ -12,23 +12,23 @@ import com.choa.s4.board.BoardDTO;
 import com.choa.s4.util.Pager;
 
 @Controller
-@RequestMapping(value="/notice/**")
-public class NoticeController {
-	
-	@Autowired
-	private NoticeService noticeService;
+@RequestMapping(value="/qna/**")
+public class QnaController {
 
-	//@RequestMapping(value="noticeList")
-	@GetMapping("noticeList")
+	@Autowired
+	private QnaService qnaService;
+	
+	//@RequestMapping(value="qnaList")
+	@GetMapping("qnaList")
 	public ModelAndView getList(Pager pager) throws Exception {
-		System.out.println("Controller Notice List");
+		System.out.println("Controller QnA List");
 		ModelAndView mv = new ModelAndView();
-		List<BoardDTO> ar = noticeService.getList(pager);
+		List<BoardDTO> ar =  qnaService.getList(pager);
 		
-		mv.addObject("board", "notice");
+		mv.addObject("board", "qna");
 		mv.addObject("list", ar);
 		mv.addObject("pager", pager);
-		mv.setViewName("board/boardList");		
+		mv.setViewName("board/boardList");
 		
 		return mv;
 	}
