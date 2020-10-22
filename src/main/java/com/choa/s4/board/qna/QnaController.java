@@ -19,6 +19,33 @@ public class QnaController {
 	@Autowired
 	private QnaService qnaService;
 	
+	@PostMapping("qnaReply")
+	public ModelAndView setReply(BoardDTO boardDTO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		int result = qnaService.setReply(boardDTO);
+		String msg = "Reply Write Fail";
+		if(result > 0) {
+			msg = "Reply Write Success";
+		}
+		
+		mv.addObject("msg", msg);
+		mv.addObject("path", "./qnaList");
+		mv.setViewName("common/result");
+		
+		return mv;
+	}
+	
+	@GetMapping("qnaReply")
+	public ModelAndView setReply() throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		mv.addObject("board", "qna");
+		mv.setViewName("board/boardReply");
+		
+		return mv;
+	}
+	
 	@GetMapping("qnaSelect")
 	public ModelAndView getOne(BoardDTO boardDTO) throws Exception {
 		ModelAndView mv = new ModelAndView();
@@ -75,7 +102,7 @@ public class QnaController {
 		
 		BoardDTO boardDTO = ar.get(0);
 		QnaDTO qnaDTO = (QnaDTO)boardDTO;
-		System.out.println(qnaDTO.getDepth());
+		//System.out.println(qnaDTO.getDepth());
 		
 		mv.addObject("board", "qna");
 		mv.addObject("list", ar);

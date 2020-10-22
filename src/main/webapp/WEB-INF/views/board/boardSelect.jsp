@@ -21,10 +21,12 @@
 	
 	<input type="button" title="${dto.num}" value="Delete" class="btn btn-warning" id="del">
 	<input type="button" class="btn btn-primary" value="Update" id="update">
+	<c:if test="${board ne 'notice'}">
+		<a href="./${board}Reply?num=${dto.num}" class="btn btn-info">Reply</a>
+	</c:if>
 </div>
 
 <script type="text/javascript">
-	//$("css선택자").action();
 	$("#update").click(function() {
 		location.href="./${board}Update?num=${dto.num}";
 	});
