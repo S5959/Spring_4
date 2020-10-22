@@ -5,14 +5,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>B-List</title>
+<title>List</title>
 <c:import url="../template/bootStrap.jsp"></c:import>
 </head>
 <body>
 <c:import url="../template/header.jsp"></c:import>
 
 <div class="container">
-	<h3>Board List</h3>
+	<h3>${board} List</h3>
 	
 	<div id="search" class="row">
 		<div class="col-sm-8">
@@ -50,7 +50,18 @@
 			<c:forEach items="${list}" var="dto" varStatus="vs">
  			<tr>
 				<td>${dto.num}  : ${vs.first} </td>
-				<td><a href="./${board}Select?num=${dto.num}">${dto.title}</a></td>
+				<td>
+					<a href="./${board}Select?num=${dto.num}">
+						<%--  if문 사용
+						<c:if test="${board eq 'qna'}">
+							<c:forEach begin="1" end="${dto.depth}">--</c:forEach>
+						</c:if>	--%>
+						<c:catch>
+							<c:forEach begin="1" end="${dto.depth}">--</c:forEach>
+						</c:catch>
+						${dto.title}
+					</a>					
+				</td>
 				<td>${dto.writer}</td>
 				<td>${dto.regDate}</td>
 				<td>${dto.hit}</td>
