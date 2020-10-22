@@ -18,7 +18,30 @@ public class NoticeDAOTest extends MyTestCase {
 	@Autowired
 	private NoticeDAO noticeDAO;
 
+	@Test void getCountTest() throws Exception {
+		Pager pager = new Pager();
+		noticeDAO.getCount(pager);
+		
+	}
+	
 	@Test
+	public void setDeleteTest() throws Exception {
+		BoardDTO boardDTO = new BoardDTO();
+		noticeDAO.setDelete(boardDTO);
+	}
+	
+	//@Test
+	public void setUpdateTest() throws Exception {
+		BoardDTO boardDTO = new BoardDTO();
+		boardDTO.setNum(164);
+		boardDTO.setTitle("164 title");
+		boardDTO.setContents("164 contents");
+		int result = noticeDAO.setUpdate(boardDTO);
+		
+		assertEquals(1, result);
+	}	
+	
+	//@Test
 	public void getOneTest() throws Exception {
 		BoardDTO boardDTO = new BoardDTO();
 		boardDTO.setNum(122);

@@ -32,7 +32,7 @@ public class NoticeDAO implements BoardDAO {
 
 	@Override
 	public int setDelete(BoardDTO boardDTO) throws Exception {
-		return 0;
+		return sqlSession.delete(NAMESPACE+"setDelete", boardDTO);
 	}
 
 	@Override
@@ -47,7 +47,7 @@ public class NoticeDAO implements BoardDAO {
 
 	@Override
 	public long getCount(Pager pager) throws Exception {
-		return 0;
+		return sqlSession.selectOne(NAMESPACE+"getCount", pager);
 	}
 	
 }
