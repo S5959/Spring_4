@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,58 @@ public class NoticeController {
 	@Autowired
 	private NoticeService noticeService;
 
+	@PostMapping("noticeUpdate")
+	public ModelAndView setUpdate(BoardDTO boardDTO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		int result = noticeService.setUpdate(boardDTO);
+		String msg = "Update Fail";
+		if(result > 0) {
+			msg = "Update Success";
+		}
+		
+		mv.addObject("msg", msg);
+		mv.addObject("path", "./noticeList");
+		mv.setViewName("common/result");
+		
+		return mv;
+	}
+	
+	@GetMapping("noticeUpdate")
+	public ModelAndView setUpdate(BoardDTO boardDTO, Model model) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		boardDTO = noticeService.getOne(boardDTO);
+		if(boardDTO != null) {
+			mv.addObject("board", "notice");
+			mv.addObject("dto", boardDTO);
+			mv.setViewName("board/boardUpdate");
+		} else {
+			mv.addObject("msg", "No Data");
+			mv.addObject("path", "./noticeList");
+			mv.setViewName("common/result");
+		}		
+		
+		return mv;
+	}
+	
+	@GetMapping("noticeDelete")
+	public ModelAndView setDelete(BoardDTO boardDTO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		int result = noticeService.setDelete(boardDTO);
+		
+		String msg = "Delete Fail";
+		if(result > 0) {
+			msg = "Delete Success";
+		}
+		
+		mv.addObject("msg", msg);
+		mv.addObject("path", "./noticeList");
+		mv.setViewName("common/result");
+		
+		return mv;
+	}
 	
 	@GetMapping("noticeSelect")
 	public ModelAndView getOne(BoardDTO boardDTO) throws Exception {

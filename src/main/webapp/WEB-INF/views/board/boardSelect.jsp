@@ -34,7 +34,6 @@
 	$("#del").click(function() {
 		//var num = $("#num").html();
 		var num = $(this).attr("title");
-		alert(num);
 		location.href="./${board}Delete?num="+num;
 	});
 

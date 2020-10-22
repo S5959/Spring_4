@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,9 @@ public class QnaController {
 
 	@Autowired
 	private QnaService qnaService;
+	
+	
+
 	
 	@PostMapping("qnaReply")
 	public ModelAndView setReply(BoardDTO boardDTO) throws Exception {
@@ -42,6 +46,60 @@ public class QnaController {
 		
 		mv.addObject("board", "qna");
 		mv.setViewName("board/boardReply");
+		
+		return mv;
+	}
+	
+	@PostMapping("qnaUpdate")
+	public ModelAndView setUpdate(BoardDTO boardDTO) throws Exception {
+		System.out.println("Post Update");
+		ModelAndView mv = new ModelAndView();
+		
+		int result = qnaService.setUpdate(boardDTO);
+		System.out.println(result);
+		String msg = "Update Fail";
+		if(result > 0) {
+			msg = "Update Success";
+		}
+		
+		mv.addObject("msg", msg);
+		mv.addObject("path", "./qnaList");
+		mv.setViewName("common/result");
+		
+		return mv;
+	}
+	
+	@GetMapping("qnaUpdate")
+	public ModelAndView setUpdate(BoardDTO boardDTO, Model model) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		boardDTO = qnaService.getOne(boardDTO);
+		if(boardDTO != null) {
+			mv.addObject("board", "qna");
+			mv.addObject("dto", boardDTO);
+			mv.setViewName("board/boardUpdate");
+		} else {
+			mv.addObject("msg", "No Data");
+			mv.addObject("path", "./qnaList");
+			mv.setViewName("common/result");
+		}
+		
+		return mv;
+	}
+	
+	@GetMapping("qnaDelete")
+	public ModelAndView setDelete(BoardDTO boardDTO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		int result = qnaService.setDelete(boardDTO);
+		String msg = "Delete Fail";
+		if(result > 0) {
+			msg = "Delete Success";
+		}
+		
+		mv.addObject("msg", msg);
+		mv.addObject("path", "./qnaList");
+		mv.setViewName("common/result");
 		
 		return mv;
 	}
