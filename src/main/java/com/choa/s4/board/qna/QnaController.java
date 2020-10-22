@@ -19,8 +19,19 @@ public class QnaController {
 	@Autowired
 	private QnaService qnaService;
 	
+	@GetMapping("qnaSelect")
+	public ModelAndView getOne(BoardDTO boardDTO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		boardDTO = qnaService.getOne(boardDTO);
+		
+		mv.addObject("board", "notice");		
+		mv.addObject("dto", boardDTO);
+		mv.setViewName("board/boardSelect");
+		
+		return mv;
+	}
 	
-	@PostMapping("noticeWrite")
+	@PostMapping("qnaWrite")
 	public ModelAndView setInsert(BoardDTO boardDTO) throws Exception {
 		//NoticeDTO noticeDTO 로 파라미터 받아와도 상관없음
 		ModelAndView mv = new ModelAndView();

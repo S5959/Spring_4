@@ -19,6 +19,18 @@ public class NoticeController {
 	@Autowired
 	private NoticeService noticeService;
 
+	@GetMapping("noticeSelect")
+	public ModelAndView getOne(BoardDTO boardDTO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		boardDTO = noticeService.getOne(boardDTO);
+		
+		mv.addObject("board", "notice");		
+		mv.addObject("dto", boardDTO);
+		mv.setViewName("board/boardSelect");
+		
+		return mv;
+	}
+	
 	@PostMapping("noticeWrite")
 	public ModelAndView setInsert(BoardDTO boardDTO) throws Exception {
 		//NoticeDTO noticeDTO 로 파라미터 받아와도 상관없음
