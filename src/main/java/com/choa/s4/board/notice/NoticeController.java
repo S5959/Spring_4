@@ -19,14 +19,21 @@ public class NoticeController {
 	@Autowired
 	private NoticeService noticeService;
 
+	
 	@GetMapping("noticeSelect")
 	public ModelAndView getOne(BoardDTO boardDTO) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		boardDTO = noticeService.getOne(boardDTO);
 		
-		mv.addObject("board", "notice");		
-		mv.addObject("dto", boardDTO);
-		mv.setViewName("board/boardSelect");
+		if(boardDTO != null) {
+			mv.addObject("board", "notice");
+			mv.addObject("dto", boardDTO);
+			mv.setViewName("board/boardSelect");
+		} else {
+			mv.addObject("msg", "No Data");
+			mv.addObject("path", "./qnaList");
+			mv.setViewName("common/result");
+		}	
 		
 		return mv;
 	}

@@ -16,7 +16,7 @@
 	
 	<div id="search" class="row">
 		<div class="col-sm-8">
-			<form id="searchForm" action="./noticeList">
+			<form id="searchForm" action="./${board}List">
 				<input type="hidden" name="curPage" id="curPage">
 				<div class="input-group">
 					<select class="input-group-sm" id="kind" name="kind">
