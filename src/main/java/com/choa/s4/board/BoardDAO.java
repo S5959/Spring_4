@@ -21,7 +21,7 @@ public interface BoardDAO {
 	public List<BoardDTO> getList(Pager pager) throws Exception;
 	
 	//selectOne
-	public BoardDTO getSelect(BoardDTO boardDTO) throws Exception;
+	public BoardDTO getOne(BoardDTO boardDTO) throws Exception;
 	
 	//count
 	public long getCount(Pager pager) throws Exception;
