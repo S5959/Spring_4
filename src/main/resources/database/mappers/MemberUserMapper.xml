@@ -3,7 +3,21 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.choa.s4.member.memberUser.MemberUserDAO">
+
+	<insert id="setMemberJoin" parameterType="MemberDTO">
+		insert into member_sm values (member_sm_seq.nextval, #{id}, #{pw}, #{name}, #{email})
+	</insert>
+
 	<select id="getMemberLogin" parameterType="MemberDTO" resultType="MemberUserDTO">
 		select * from member_sm where id=#{id} and pw=#{pw}
-	</select>	
+	</select>
+	
+	<update id="setMemberUpdate" parameterType="MemberDTO">
+		update member_sm set name=#{name}, email=#{email} where num=#{num}
+	</update>
+	
+	<delete id="setMemberDelete" parameterType="MemberDTO">
+		delete member_sm where id=#{id} 
+	</delete>
+	
 </mapper>

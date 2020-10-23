@@ -14,12 +14,21 @@
 <div class="container">
 	<table class="table table-condensed" >
 		<tr>
-			<th>Num</th>	<td></td>
-			<th>ID</th>		<td></td>
-			<th>Name</th>	<td></td>
-			<th>Email</th>	<td></td>
+			<th>Num</th>	<td>${member.num}</td>
+		</tr>
+		<tr>
+			<th>ID</th>		<td>${member.id}</td>
+		</tr>
+		<tr>
+			<th>Name</th>	<td>${member.name}</td>
+		</tr>
+		<tr>
+			<th>Email</th>	<td>${member.email}</td>
 		</tr>
 	</table>
+	
+	<a href="./memberUpdate" class="btn btn-primary">Update</a>
+	<a href="./memberDelete" class="btn btn-danger">Delete</a>
 </div>
 </body>
 </html>

@@ -18,21 +18,74 @@ public class MemberUserController {
 	@Autowired
 	private MemberUserService memberUserService;
 	
-	//getMemberLogout
-	@GetMapping("memberLogout")
-	public ModelAndView getMemberLogout(HttpSession session) throws Exception {
-		//--로그아웃되는 조건--
-		//웹브라우저를 종료
-		//일정시간 경과 (로그인 후에 요청이 발생하면 시간이 연장)
-		//meberDTO를 Null로 대체
-		//유지시간을 강제로 0으로 변경
-		session.invalidate();
-		
+	//join
+	@GetMapping("memberJoin")
+	public ModelAndView setMemberJoin() throws Exception {
 		ModelAndView mv = new ModelAndView();
+		mv.setViewName("member/memberJoin");
+		
+		return mv;
+	}
+	
+	@PostMapping("memberJoin")
+	public ModelAndView setMemberJoin(MemberDTO memberDTO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		int result = memberUserService.setMemberJoin(memberDTO);
+		
 		mv.setViewName("redirect:../");
 		
 		return mv;
+	}
+	
+	//setMemberDelete 
+	@GetMapping("memberDelete")
+	public ModelAndView setMemberDelete(HttpSession session) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
+		int result = memberUserService.setMemberDelete(memberDTO);
+		
+		mv.setViewName("redirect:../");
+		session.invalidate();
+		
+		return mv;
+	}
+	
+	//setMemberUpdate
+	@GetMapping("memberUpdate")
+	public ModelAndView setMemberUpdate(MemberDTO memberDTO) throws Exception {
+		ModelAndView mv = new ModelAndView();		
+		mv.setViewName("member/memberUpdate");		
+		return mv;
+	}
+	
+	@PostMapping("memberUpdate")
+	public ModelAndView setMemberUpdate(MemberDTO memberDTO, HttpSession session) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		MemberDTO s = (MemberDTO)session.getAttribute("member");
+		memberDTO.setId(s.getId());
+		
+		int result = memberUserService.setMemberUpdate(memberDTO);
+		
+		if(result > 0) {
+			s.setName(memberDTO.getName());
+			s.setEmail(memberDTO.getEmail());
+			session.setAttribute("member", s);
+		}
+		
+		mv.setViewName("redirect:./memberPage");
+		
+		return mv;
+	}
+	
+	//getMemberPage
+	@GetMapping("memberPage")
+	public ModelAndView getMemberPage() throws Exception {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("member/memberPage");		
+		return mv;
 	}	
+
 	
 	//getMemberLogin
 	@GetMapping("memberLogin")
@@ -63,7 +116,22 @@ public class MemberUserController {
 		}
 		
 		return mv;
-	}
-	
+	}	
 
+	
+	//getMemberLogout
+	@GetMapping("memberLogout")
+	public ModelAndView getMemberLogout(HttpSession session) throws Exception {
+		//--로그아웃되는 조건--
+		//웹브라우저를 종료
+		//일정시간 경과 (로그인 후에 요청이 발생하면 시간이 연장)
+		//meberDTO를 Null로 대체
+		//유지시간을 강제로 0으로 변경
+		session.invalidate();
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("redirect:../");
+		
+		return mv;
+	}
 }
