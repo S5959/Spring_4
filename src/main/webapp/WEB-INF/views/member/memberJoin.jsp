@@ -17,27 +17,40 @@
 		<div class="form-group">
 			<label for="id">Id:</label>
 			<input type="id" class="form-control" id="id" placeholder="Enter id" name="id">
+			<div id="idResult"></div>
 		</div>
 		<div class="form-group">
 			<label for="pw">Password:</label>
 			<input type="password" class="form-control" id="pw" placeholder="Enter password" name="pw">
+			<div id="pwResult"></div>
 		</div>
 		<div class="form-group">
 			<label for="pw">Password:</label>
 			<input type="password" class="form-control" id="pw2" placeholder="Enter password" name="pw2">
+			<div id="pw2Result"></div>
 		</div>
 		<div class="form-group">
 			<label for="name">Name:</label>
 			<input type="name" class="form-control" id="name" placeholder="Enter name" name="name">
+			<div id="nameResult"></div>
 		</div>
 		<div class="form-group">
 			<label for="email">Email:</label>
 			<input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+			<div id="emailResult"></div>
 		</div>
 		
 		<button type="submit" class="btn btn-default">Submit</button>
 	</form>
 </div>
+
+<script type="text/javascript">
+	$("#id").change(function() {
+		console.log($(this).val());
+		
+		
+	});
+</script>
 
 </body>
 </html>
