@@ -30,31 +30,21 @@ public class MemoController {
 	
 	@PostMapping("memoWrite")
 	public ModelAndView setInsert(MemoDTO memoDTO) throws Exception {
-		System.out.println("Memo Write");
-		System.out.println("writer : " + memoDTO.getWriter());
-		System.out.println("contents : " + memoDTO.getContents());
-		
 		ModelAndView mv = new ModelAndView();
 		
 		int result = memoService.setInsert(memoDTO);
-		
-		String msg = "Insert Fail";
+		/*
+		String msg = "Write Fail";
 		if(result > 0) {
-			msg = "Insert Success";
+			msg = "Write Success";
 		}
-		
-		mv.addObject("msg", msg);
+		*/
+		mv.addObject("msg", result);
 		mv.setViewName("common/ajaxResult");
 		
 		return mv;
 	}
-	
-	@GetMapping("memoWrite")
-	public void setInsert() throws Exception {
-		System.out.println("Memo Write");
-		//int result = memoService.setInsert(memoDTO);		
-	}
-	
+		
 	@PostMapping("memoDelete")
 	public ModelAndView setDelete(MemoDTO memoDTO) throws Exception {
 		ModelAndView mv = new ModelAndView();
@@ -70,7 +60,6 @@ public class MemoController {
 	@GetMapping("memoTest")
 	public ModelAndView memoTest(MemoDTO memoDTO) throws Exception {		
 		ModelAndView mv = new ModelAndView();
-		memoDTO.setNum(memoDTO.getNum());
 		memoDTO = memoService.getOne(memoDTO);
 		
 		mv.addObject("dto", memoDTO);

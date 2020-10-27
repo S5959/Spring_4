@@ -65,9 +65,7 @@
 		
 		if(idCheck && pwCheck && emptyCheckResult) {
 			$("#frm").submit();
-		} /* else {
-			console.log("No");
-		} */
+		}
 		
 	});
 	//*************************************
@@ -78,6 +76,27 @@
 		var id = $(this).val();
 		
 		if(id != '') {
+			
+			$.ajax({
+				url : "./memeberIdCheck",
+				type : "POST",
+				data : {id:id},
+				success : function(data) {
+					data = data.trim();
+					
+					var str = "중복된 ID 입니다.";
+					$("#idResult").remove("idCheck0").addClass("idCheck1");
+					if(data==0) {
+						str = "사용 가능한 ID 입니다.";
+						$("#idResult").removeClass("idCheck1").addClass("idCheck0");
+						idCheck = true;
+					}				
+					$("#idResult").html(str);
+				}
+			});
+			
+			
+			/*
 			$.post("./memberIdCheck", {id:id}, function(data) {
 				//a 	사용가능, 		b 		사용불가
 				//true 	사용가능,		false 	사용불가
@@ -93,6 +112,7 @@
 				}				
 				$("#idResult").html(str);
 			});
+			*/
 		} else {
 			$("#idResult").html("ID는 필수 입력 항목 입니다.");
 			$("#idResult").remove("idCheck0").addClass("idCheck1");

@@ -31,15 +31,27 @@
 	</form>
 	
 	<button id="btn" class="btn btn-primary">List</button>
-	<div id="result"></div>
-	<button class="btn btn-danger del">더보기</button>
+	<div id="result">
+		
+	</div>
+	<button id="more" class="btn btn-danger del">더보기</button>
 </div>
 
 <script type="text/javascript">
+	var curPage=1;
 	getList();
 	
 	
-	//************* DEL **************
+	//************  More  *************
+	$("#more").click(function() {
+		curPage++;
+		console.log(curPage);
+		getList();
+	});	
+	//*********************************	
+	
+	
+	//*************  DEL  **************
 	/* 더보기의 del 만 걸어지고 table의 del 버튼은 적용안됨
 	 *
 	$(".del").click(function() {
@@ -48,41 +60,98 @@
 	*/
 	
 	$("#result").on("click", ".del", function() {
-		console.log("Delete");
 		var num = $(this).attr("title");
 		//var num2 = $("#num"+num).html();	//사용비추, 결과 fail...
-		console.log(num);
+		
+		$.ajax({
+			url : "./memoDelete",
+			type : "POST",
+			data : {num:num},
+			success : function(data) {
+				data=data.trim();	//공백때문에 true 인데 false로 결과 출력될 수 있기때문에 사전방지
+				if(data>0) {
+					$("#result").html('');
+					curPage=1;
+					getList();
+				} else {
+					alert("Delete Fail");
+				}
+			}
+		});
+		
+		/*
 		$.post("./memoDelete", {num:num}, function(data) {
 			data=data.trim();	//공백때문에 true 인데 false로 결과 출력될 수 있기때문에 사전방지
-			console.log(data);
-			console.log(data==1);
-			getList();
+			if(data>0) {
+				getList();
+			} else {
+				alert("Delete Fail");
+			}
 		});
+		*/
 	});
-	//********************************
+	//**********************************
 
 	
-	//************ WRITE *************
+	//************  Write  *************
 	$("#write").click(function() {
 		var writer = $("#writer").val();
 		var contents = $("#contents").val();
 		
+		$.ajax({
+			url : "./memoWrite",
+			type : "POST",
+			data : {
+				writer:writer, 
+				contents:contents
+			},
+			success : function(result) {
+				result = result.trim();
+				if(result>0) {
+					console.log(result);
+					$("#writer").val('');
+					$("#contents").val('');
+					$("#result").html('');
+					curPage=1;
+					getList();
+				} else {
+					alert("Write Fail");
+				}				
+			}
+		});
+		
+		/*
 		$.post("./memoWrite", {writer:writer, contents:contents}, function(result) {
 			console.log(result);
 			$("#writer").val('');
 			$("#contents").val('');
 			getList();
 		});
+		*/
 	});
 	
-	//*******************************	
+	//*********************************	
 	
 	
+	//************  List  *************
 	function getList() {
+		$.ajax({
+			url : "./memoList",
+			type : "GET",
+			data : {curPage:curPage},
+			success : function(data) {
+				//$("#result").html(data);
+				$("#result").append(data);
+			}
+		});
+		
+		/*
 		$.get("./memoList", function(data) {
 			$("#result").html(data);
 		});
+		*/
 	}
+	//*********************************	
 </script>
 
 </body>
