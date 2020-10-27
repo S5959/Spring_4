@@ -47,7 +47,7 @@
 			<div class="emptyResult"></div>
 		</div>
 		
-		<input type="submit" value="Join" class="btn btn-default" id="join">
+		<input type="button" value="Join" class="btn btn-default" id="join">
 	</form>
 </div>
 
