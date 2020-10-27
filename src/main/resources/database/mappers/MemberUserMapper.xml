@@ -5,23 +5,23 @@
 <mapper namespace="com.choa.s4.member.memberUser.MemberUserDAO">
 
 	<insert id="setMemberJoin" parameterType="MemberDTO">
-		insert into member_sm values (member_sm_seq.nextval, #{id}, #{pw}, #{name}, #{email})
+		insert into member values (member_seq.nextval, #{id}, #{pw}, #{name}, #{email})
 	</insert>
 
 	<select id="getMemberLogin" parameterType="MemberDTO" resultType="MemberUserDTO">
-		select * from member_sm where id=#{id} and pw=#{pw}
+		select * from member where id=#{id} and pw=#{pw}
 	</select>
 	
 	<update id="setMemberUpdate" parameterType="MemberDTO">
-		update member_sm set name=#{name}, email=#{email} where num=#{num}
+		update member set name=#{name}, email=#{email} where num=#{num}
 	</update>
 	
 	<delete id="setMemberDelete" parameterType="MemberDTO">
-		delete member_sm where id=#{id} 
+		delete member where id=#{id} 
 	</delete>
 	
 	<select id="getMemberIdCheck" parameterType="MemberDTO" resultType="Long">
-		select count(num) from member_sm where id=#{id}
+		select count(num) from member where id=#{id}
 	</select>
 	
 </mapper>
