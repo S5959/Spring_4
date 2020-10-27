@@ -47,7 +47,7 @@
 			<div class="emptyResult"></div>
 		</div>
 		
-		<input value="Join" class="btn btn-default" id="join">
+		<input type="submit" value="Join" class="btn btn-default" id="join">
 	</form>
 </div>
 
@@ -64,9 +64,7 @@
 		var email = $("#email").val();
 		
 		if(idCheck && pwCheck && emptyCheckResult) {
-			//중복체크했고, 사용가능한 ID
-			console.log("OK");
-			//$("#frm").submit();
+			$("#frm").submit();
 		} /* else {
 			console.log("No");
 		} */
