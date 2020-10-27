@@ -7,6 +7,14 @@
 <meta charset="UTF-8">
 <title>Join</title>
 <c:import url="../template/bootStrap.jsp"></c:import>
+<style type="text/css">
+	.idCheck0 {
+		color: blue;
+	}
+	.idCheck1 {
+		color: red;
+	}
+</style>
 </head>
 <body>
 <c:import url="../template/header.jsp"></c:import>
@@ -45,9 +53,27 @@
 </div>
 
 <script type="text/javascript">
-	$("#id").change(function() {
-		console.log($(this).val());
-		
+	$("#id").blur(function() {
+		var id = $(this).val();
+		console.log(id);
+
+		$.post("./memberIdCheck", {id:id}, function(data) {
+			//a 	사용가능, 		b 		사용불가
+			//true 	사용가능,		false 	사용불가
+			//0 	사용가능, 		1 		사용불가
+			data = data.trim();
+			console.log(data);
+			
+			var str = "중복된 ID 입니다.";
+			$("#idResult").addClass("idCheck1");
+			if(data==0) {
+				str = "사용 가능한 아이디 입니다.";
+				$("#idResult").removeClass("idCheck1").addClass("idCheck0");
+			} 
+			
+			$("#idResult").html(str);
+			
+		});
 		
 	});
 </script>

@@ -20,4 +20,8 @@
 		delete member_sm where id=#{id} 
 	</delete>
 	
+	<select id="getMemberIdCheck" parameterType="MemberDTO" resultType="Long">
+		select count(num) from member_sm where id=#{id}
+	</select>
+	
 </mapper>

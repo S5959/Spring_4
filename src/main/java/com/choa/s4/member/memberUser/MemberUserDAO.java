@@ -34,6 +34,9 @@ public class MemberUserDAO implements MemberDAO {
 		return sqlSession.delete(NAMESPACE+"setMemberDelete", memberDTO);
 	}
 	
-	
+	@Override
+	public long getMemberIdCheck(MemberDTO memberDTO) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"getMemberIdCheck", memberDTO);
+	}
 	
 }

@@ -134,4 +134,16 @@ public class MemberUserController {
 		
 		return mv;
 	}
+	
+	@PostMapping("memberIdCheck")
+	public ModelAndView getMemberIdCheck(MemberDTO memberDTO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		long result = memberUserService.getMemberIdCheck(memberDTO);
+		
+		System.out.println("result " + result);
+		mv.addObject("msg", result);
+		mv.setViewName("common/ajaxResult");
+		
+		return mv;
+	}
 }

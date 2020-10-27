@@ -32,4 +32,9 @@ public class MemberUserService implements MemberService {
 		return memberUserDAO.setMemberDelete(memberDTO);
 	}
 	
+	@Override
+	public long getMemberIdCheck(MemberDTO memberDTO) throws Exception {
+		return memberUserDAO.getMemberIdCheck(memberDTO);
+	}
+	
 }

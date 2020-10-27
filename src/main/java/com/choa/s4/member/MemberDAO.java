@@ -14,4 +14,6 @@ public interface MemberDAO {
 	//delete
 	public int setMemberDelete(MemberDTO memberDTO) throws Exception;
 	
+	//idCheck
+	public long getMemberIdCheck(MemberDTO memberDTO) throws Exception;
 }
