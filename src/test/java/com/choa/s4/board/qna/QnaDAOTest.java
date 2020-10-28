@@ -13,7 +13,7 @@ public class QnaDAOTest extends MyTestCase {
 	@Autowired
 	private QnaDAO qnaDAO;
 	
-	@Test
+	//@Test
 	public void setInsertTest() throws Exception {
 		BoardDTO boardDTO = new BoardDTO();
 		boardDTO.setTitle("qna title test");

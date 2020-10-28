@@ -1,7 +1,6 @@
 package com.choa.s4.board.memo;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 import java.util.List;
 
@@ -38,7 +37,7 @@ public class MemoDAOTest extends MyTestCase {
 		}*/
 	}
 	
-	@Test
+	//@Test
 	public void getOneTest() throws Exception {
 		MemoDTO memoDTO = new MemoDTO();
 		memoDTO.setNum(340);

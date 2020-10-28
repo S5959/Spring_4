@@ -1,7 +1,12 @@
 package com.choa.s4.member.memberUser;
 
+import java.io.File;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.choa.s4.member.MemberDTO;
 import com.choa.s4.member.MemberService;
@@ -13,8 +18,16 @@ public class MemberUserService implements MemberService {
 	private MemberUserDAO memberUserDAO;
 
 	@Override
-	public int setMemberJoin(MemberDTO memberDTO) throws Exception {
-		return memberUserDAO.setMemberJoin(memberDTO);
+	public int setMemberJoin(MemberDTO memberDTO, MultipartFile photo, HttpSession session) throws Exception {
+		//HDD 폴더에, 이름
+		
+		//File file = new File("C:\\Sungmin\\workspace2\\spring_4\\src\\main\\webapp\\resources\\upload\\member");
+		String path = session.getServletContext().getRealPath();
+		System.out.println(path);
+		
+		
+		return 0;
+		//return memberUserDAO.setMemberJoin(memberDTO);
 	}
 	
 	@Override

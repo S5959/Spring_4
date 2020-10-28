@@ -21,10 +21,10 @@
 
 <div class="container">
 	<h3>Member Join Form</h3>
-	<form action="./memberJoin" method="post" id="frm">
+	<form action="./memberJoin" method="post" id="frm" enctype="multipart/form-data">
 		<div class="form-group">
 			<label for="id">Id:</label>
-			<input type="id" class="form-control" id="id" placeholder="Enter id" name="id">
+			<input type="text" class="form-control" id="id" placeholder="Enter id" name="id">
 			<div id="idResult"></div>
 		</div>
 		<div class="form-group">
@@ -38,12 +38,17 @@
 		</div>
 		<div class="form-group">
 			<label for="name">Name:</label>
-			<input type="name" class="form-control empty" id="name" placeholder="Enter name" name="name">
+			<input type="text" class="form-control empty" id="name" placeholder="Enter name" name="name">
 			<div class="emptyResult"></div>
 		</div>
 		<div class="form-group">
 			<label for="email">Email:</label>
-			<input type="email" class="form-control empty" id="email" placeholder="Enter email" name="email">
+			<input type="text" class="form-control empty" id="email" placeholder="Enter email" name="email">
+			<div class="emptyResult"></div>
+		</div>
+		<div class="form-group">
+			<label for="photo">Photo:</label>
+			<input type="file" class="form-control empty" id="photo" name="photo">
 			<div class="emptyResult"></div>
 		</div>
 		
