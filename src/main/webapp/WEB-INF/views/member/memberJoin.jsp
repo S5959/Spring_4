@@ -53,6 +53,7 @@
 		</div>
 		
 		<input type="button" value="Join" class="btn btn-default" id="join">
+		<button>Test Join</button>
 	</form>
 </div>
 
