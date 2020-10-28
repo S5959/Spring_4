@@ -30,7 +30,7 @@ public class NoticeService implements BoardService {
 		File file = new File(path);
 		
 		//fileSaver.save(files, session, "notice");
-		String fileName = fileSaver.saveCopy(file, files);
+		String fileName = fileSaver.saveTransfer(file, files);
 		return 0;//noticeDAO.setInsert(boardDTO);
 	}
 

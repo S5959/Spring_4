@@ -27,6 +27,10 @@
 		</tr>
 	</table>
 	
+	<div>
+		<img alt="" src="../resources/upload/member/">
+	</div>
+	
 	<a href="./memberUpdate" class="btn btn-primary">Update</a>
 	<a href="./memberDelete" class="btn btn-danger">Delete</a>
 </div>
