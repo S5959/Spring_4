@@ -24,24 +24,42 @@ public class MemberUserService implements MemberService {
 	@Autowired
 	private FileSaver fileSaver;
 	
+	
+	
+	public MemberFileDTO getOne(MemberDTO memberDTO) throws Exception {
+		return memberFileDAO.getOne(memberDTO);
+	}
+	
+	
 	@Override
 	public int setMemberJoin(MemberDTO memberDTO, MultipartFile photo, HttpSession session) throws Exception {
-		
+		//저장할 폴더 경로
 		String path = session.getServletContext().getRealPath("/resources/upload/member");
-		System.out.println("path");
+		System.out.println(path);
 		File file = new File(path);
 		
-		String fileName = fileSaver.saveCopy(file, photo);
+		//memberFile 테이블의 id 컬럼이 member 테이블의 id 컬럼을 외래키로 참조하고 있기 때문에 
+		//memberFileDAO.setInsert를 먼저하면 참조할 id가 없어서 오류 발생
+		//따라서...Member를 먼저 생성해주고
+		int result = memberUserDAO.setMemberJoin(memberDTO);
 		
-		MemberFileDTO memberFileDTO = new MemberFileDTO();
-		memberFileDTO.setId(memberDTO.getId());
-		memberFileDTO.setFileName(fileName);
-		memberFileDTO.setOriName(photo.getOriginalFilename());
-		memberFileDAO.setInsert(memberFileDTO);
 		
-
-		return 0;
-		//return memberUserDAO.setMemberJoin(memberDTO);
+		String fileName = "";
+		if(photo.getSize() != 0) {
+			fileName = fileSaver.saveCopy(file, photo);
+			
+			//memberFile Insert
+			MemberFileDTO memberFileDTO = new MemberFileDTO();
+			memberFileDTO.setId(memberDTO.getId());
+			memberFileDTO.setFileName(fileName);
+			memberFileDTO.setOriName(photo.getOriginalFilename());
+			
+			//이미지 File을 저장   
+			result = memberFileDAO.setInsert(memberFileDTO);
+		}	
+		
+		return result;
+		
 		
 		/*
 		 * FileSaver 를 따로 만들어 메서드로 호출하여 사용하도록 변경

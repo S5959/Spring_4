@@ -15,7 +15,6 @@ public class FileSaver {
 
 	//save 메서드 생성
 	
-	//강사님 코드
 	//Multipartfile.transferTo
 	public String saveTransfer(File dest, MultipartFile multipartFile) throws Exception {
 
@@ -33,8 +32,6 @@ public class FileSaver {
 		return fileName;
 	}
 	
-	
-	//강사님 코드
 	//filecopyUtil.copy
 	public String saveCopy(File dest, MultipartFile multipartFile) throws Exception {
 		

@@ -48,8 +48,7 @@
 		</div>
 		<div class="form-group">
 			<label for="photo">Photo:</label>
-			<input type="file" class="form-control empty" id="photo" name="photo">
-			<div class="emptyResult"></div>
+			<input type="file" class="form-control" id="photo" name="photo">
 		</div>
 		
 		<input type="button" value="Join" class="btn btn-default" id="join">

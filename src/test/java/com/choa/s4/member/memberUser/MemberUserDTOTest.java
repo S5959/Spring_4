@@ -14,7 +14,7 @@ public class MemberUserDTOTest extends MyTestCase {
 	@Autowired
 	private MemberUserDAO memberUserDAO;
 	
-	@Test
+	//@Test
 	public void getMemberLoginTest() throws Exception {
 		MemberDTO memberDTO = new MemberDTO();
 		memberDTO.setId("id4");
