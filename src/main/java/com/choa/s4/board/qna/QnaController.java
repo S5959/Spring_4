@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.choa.s4.board.BoardDTO;
+import com.choa.s4.board.file.BoardFileDTO;
 import com.choa.s4.util.Pager;
 
 @Controller
@@ -21,9 +22,7 @@ import com.choa.s4.util.Pager;
 public class QnaController {
 
 	@Autowired
-	private QnaService qnaService;
-	
-	
+	private QnaService qnaService;	
 
 	
 	@PostMapping("qnaReply")
@@ -107,6 +106,8 @@ public class QnaController {
 		return mv;
 	}
 	
+	
+	
 	@GetMapping("qnaSelect")
 	public ModelAndView getOne(BoardDTO boardDTO) throws Exception {
 		ModelAndView mv = new ModelAndView();
@@ -125,12 +126,40 @@ public class QnaController {
 		return mv;
 	}
 	
-	@PostMapping("qnaWrite")
-	public ModelAndView setInsert(BoardDTO boardDTO) throws Exception {
-		//NoticeDTO noticeDTO 로 파라미터 받아와도 상관없음
+	
+	/* 
+	 * 순서
+	 * 1) JSP에서 파일 선택
+	 * 2) Controller(@GetMapping("fileDown") 으로 들어옴
+	 * 3) mv.setViewName("fileDown"); 를 보고 이 이름으로 만들어놓은 객체가 있는지 확인
+	 * 4) DispatcherServlet(D.S)를 실행
+	 * 5) servelt-context.xml 으로 가서
+	 * 6) (있으면) FileDown.java 를 실행 		(order:0)
+	 * 	  (없으면) -> /WEB-INF/views/ 에서 실행 	(order:1)
+	 * 
+	 * */	
+	@GetMapping("fileDown")
+	public ModelAndView fileDown(BoardFileDTO boardFileDTO) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		
-		int result = qnaService.setInsert(boardDTO);
+		mv.addObject("board", "qna");
+		mv.addObject("fileDTO", boardFileDTO);
+		//이 이름으로 만들어놓은 객체가 있는지 확인 -> servlet-context.xml에 객체 생성해둠
+		mv.setViewName("fileDown");
+		return mv;
+	}
+	
+	
+	@PostMapping("qnaWrite")
+	public ModelAndView setInsert(BoardDTO boardDTO, MultipartFile[] files, HttpSession session) throws Exception {
+		//NoticeDTO noticeDTO 로 파라미터 받아와도 상관없음
+		ModelAndView mv = new ModelAndView();		
+		
+		for(MultipartFile multipartFile : files) {
+			System.out.println(multipartFile.getOriginalFilename());			
+		}
+		
+		int result = qnaService.setInsert(boardDTO, files, session);
 		String msg = "Write Fail";
 		if(result > 0) {
 			msg = "Write Success";

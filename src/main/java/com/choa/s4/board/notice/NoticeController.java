@@ -94,6 +94,18 @@ public class NoticeController {
 		return mv;
 	}
 	
+	
+	
+	@GetMapping("noticeWrite")
+	public ModelAndView setInsert() throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		mv.addObject("board", "notice");
+		mv.setViewName("board/boardWrite");
+				
+		return mv;
+	}
+	
 	@PostMapping("noticeWrite")
 	public ModelAndView setInsert(BoardDTO boardDTO, MultipartFile[] files, HttpSession session) throws Exception {
 		//NoticeDTO noticeDTO 로 파라미터 받아와도 상관없음
@@ -103,7 +115,7 @@ public class NoticeController {
 			System.out.println(files[i].getOriginalFilename());			
 		}
 		
-		int result = noticeService.setInsert(boardDTO);
+		int result = noticeService.setInsert(boardDTO, files, session);
 		String msg = "Write Fail";
 		if(result > 0) {
 			msg = "Write Success";
@@ -116,15 +128,7 @@ public class NoticeController {
 		return mv;
 	}
 	
-	@GetMapping("noticeWrite")
-	public ModelAndView setInsert() throws Exception {
-		ModelAndView mv = new ModelAndView();
-		
-		mv.addObject("board", "notice");
-		mv.setViewName("board/boardWrite");
-				
-		return mv;
-	}
+	
 	
 	//@RequestMapping(value="noticeList")
 	@GetMapping("noticeList")

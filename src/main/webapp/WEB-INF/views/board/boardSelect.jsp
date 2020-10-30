@@ -18,6 +18,20 @@
 	<h3>Title : ${dto.title}</h3>
 	<h3>Writer : ${dto.writer}</h3>
 	<h3>Contents : ${dto.contents}</h3>
+	<c:forEach items="${dto.boardFileDTOs}" var="file">
+		<a href="../resources/upload/${board}/${file.fileName}">${file.oriName}</a>
+	</c:forEach>	
+	
+	
+	<c:forEach items="${dto.boardFileDTOs}" var="file">
+		<a href="./fileDown?fileName=${file.fileName}&${file.oriName}">${file.oriName}</a>
+	
+	 	<hr>
+		<h3>${file.fileName}</h3>
+		<h3>${file.oriName}</h3>
+	 
+	</c:forEach>
+	
 	
 	<input type="button" title="${dto.num}" value="Delete" class="btn btn-warning" id="del">
 	<input type="button" class="btn btn-primary" value="Update" id="update">
