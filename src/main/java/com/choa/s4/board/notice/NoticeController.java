@@ -95,11 +95,15 @@ public class NoticeController {
 	}
 	
 	@PostMapping("noticeWrite")
-	public ModelAndView setInsert(BoardDTO boardDTO, MultipartFile files, HttpSession session) throws Exception {
+	public ModelAndView setInsert(BoardDTO boardDTO, MultipartFile[] files, HttpSession session) throws Exception {
 		//NoticeDTO noticeDTO 로 파라미터 받아와도 상관없음
 		ModelAndView mv = new ModelAndView();
 		
-		int result = noticeService.setInsert(boardDTO, files, session);
+		for(int i=0; i<files.length; i++) {
+			System.out.println(files[i].getOriginalFilename());			
+		}
+		
+		int result = noticeService.setInsert(boardDTO);
 		String msg = "Write Fail";
 		if(result > 0) {
 			msg = "Write Success";

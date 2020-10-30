@@ -126,11 +126,11 @@ public class QnaController {
 	}
 	
 	@PostMapping("qnaWrite")
-	public ModelAndView setInsert(BoardDTO boardDTO, MultipartFile multipartFile, HttpSession session) throws Exception {
+	public ModelAndView setInsert(BoardDTO boardDTO) throws Exception {
 		//NoticeDTO noticeDTO 로 파라미터 받아와도 상관없음
 		ModelAndView mv = new ModelAndView();
 		
-		int result = qnaService.setInsert(boardDTO, multipartFile, session);
+		int result = qnaService.setInsert(boardDTO);
 		String msg = "Write Fail";
 		if(result > 0) {
 			msg = "Write Success";

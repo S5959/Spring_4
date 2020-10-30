@@ -20,6 +20,19 @@ public class MemberUserController {
 	@Autowired
 	private MemberUserService memberUserService;
 	
+	//idCheck
+	@PostMapping("memberIdCheck")
+	public ModelAndView getMemberIdCheck(MemberDTO memberDTO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		long result = memberUserService.getMemberIdCheck(memberDTO);
+				
+		System.out.println("result " + result);
+		mv.addObject("msg", result);
+		mv.setViewName("common/ajaxResult");
+		
+		return mv;
+	}
+	
 	//join
 	@GetMapping("memberJoin")
 	public ModelAndView setMemberJoin() throws Exception {
@@ -37,10 +50,77 @@ public class MemberUserController {
 		System.out.println(photo.getName());
 		System.out.println(photo.getSize());
 		System.out.println(photo.getContentType());
-		byte[] ar = photo.getBytes();
+		//byte[] ar = photo.getBytes();
 		
 		int result = memberUserService.setMemberJoin(memberDTO,photo, session);
 		
+		mv.setViewName("redirect:../");
+		
+		return mv;
+	}
+
+	
+	//getMemberPage
+	@GetMapping("memberPage")
+	public ModelAndView getMemberPage() throws Exception {
+		ModelAndView mv = new ModelAndView();
+		/*
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");		
+		MemberFileDTO memberFileDTO = memberUserService.getOne(memberDTO);
+		
+		mv.addObject("file", memberFileDTO);
+		*/
+		mv.setViewName("member/memberPage");
+		return mv;
+	}	
+
+	
+	//getMemberLogin
+	@GetMapping("memberLogin")
+	public ModelAndView getMemberLogin() throws Exception {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("member/memberLogin");
+		
+		return mv;
+	}
+		
+	@PostMapping("memberLogin")
+	public ModelAndView getMemberLogin(MemberDTO memberDTO, HttpSession session) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		System.out.println("Login ID : " + memberDTO.getId());
+		System.out.println("Login PW : " + memberDTO.getPw());
+		memberDTO = memberUserService.getMemberLogin(memberDTO);
+		
+		if(memberDTO != null) {
+			//index 페이지 이동
+			//redirect
+
+			System.out.println("--------------------------" + memberDTO.getMemberFileDTO());
+			session.setAttribute("member", memberDTO);
+			mv.setViewName("redirect:../");
+		} else {
+			//로그인 실패 메세지를 alert
+			//로그인 입력 폼으로 이동
+			//foward
+			mv.addObject("msg", "Login Fail");
+			mv.addObject("path", "./memberLogin");
+			mv.setViewName("common/result");
+		}
+		
+		return mv;
+	}
+	
+	//getMemberLogout
+	@GetMapping("memberLogout")
+	public ModelAndView getMemberLogout(HttpSession session) throws Exception {
+		//--로그아웃되는 조건--
+		//웹브라우저를 종료
+		//일정시간 경과 (로그인 후에 요청이 발생하면 시간이 연장)
+		//meberDTO를 Null로 대체
+		//유지시간을 강제로 0으로 변경
+		session.invalidate();
+		
+		ModelAndView mv = new ModelAndView();
 		mv.setViewName("redirect:../");
 		
 		return mv;
@@ -83,79 +163,6 @@ public class MemberUserController {
 		}
 		
 		mv.setViewName("redirect:./memberPage");
-		
-		return mv;
-	}
-	
-	//getMemberPage
-	@GetMapping("memberPage")
-	public ModelAndView getMemberPage(HttpSession session) throws Exception {
-		ModelAndView mv = new ModelAndView();
-		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");		
-		MemberFileDTO memberFileDTO = memberUserService.getOne(memberDTO);
-		
-		mv.addObject("file", memberFileDTO);
-		mv.setViewName("member/memberPage");
-		return mv;
-	}	
-
-	
-	//getMemberLogin
-	@GetMapping("memberLogin")
-	public ModelAndView getMemberLogin() throws Exception {
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("member/memberLogin");
-		
-		return mv;
-	}
-		
-	@PostMapping("memberLogin")
-	public ModelAndView getMemberLogin(MemberDTO memberDTO, HttpSession session) throws Exception {
-		ModelAndView mv = new ModelAndView();
-		memberDTO = memberUserService.getMemberLogin(memberDTO);
-		
-		if(memberDTO != null) {
-			//index 페이지 이동
-			//redirect
-			session.setAttribute("member", memberDTO);
-			mv.setViewName("redirect:../");
-		} else {
-			//로그인 실패 메세지를 alert
-			//로그인 입력 폼으로 이동
-			//foward
-			mv.addObject("msg", "Login Fail");
-			mv.addObject("path", "./memberLogin");
-			mv.setViewName("common/result");
-		}
-		
-		return mv;
-	}	
-
-	
-	//getMemberLogout
-	@GetMapping("memberLogout")
-	public ModelAndView getMemberLogout(HttpSession session) throws Exception {
-		//--로그아웃되는 조건--
-		//웹브라우저를 종료
-		//일정시간 경과 (로그인 후에 요청이 발생하면 시간이 연장)
-		//meberDTO를 Null로 대체
-		//유지시간을 강제로 0으로 변경
-		session.invalidate();
-		
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("redirect:../");
-		
-		return mv;
-	}
-	
-	@PostMapping("memberIdCheck")
-	public ModelAndView getMemberIdCheck(MemberDTO memberDTO) throws Exception {
-		ModelAndView mv = new ModelAndView();
-		long result = memberUserService.getMemberIdCheck(memberDTO);
-		
-		System.out.println("result " + result);
-		mv.addObject("msg", result);
-		mv.setViewName("common/ajaxResult");
 		
 		return mv;
 	}

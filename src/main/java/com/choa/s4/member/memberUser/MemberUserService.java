@@ -23,13 +23,17 @@ public class MemberUserService implements MemberService {
 	private MemberFileDAO memberFileDAO;
 	@Autowired
 	private FileSaver fileSaver;
-	
-	
-	
+
+	/*	
 	public MemberFileDTO getOne(MemberDTO memberDTO) throws Exception {
 		return memberFileDAO.getOne(memberDTO);
 	}
+	*/
 	
+	@Override
+	public long getMemberIdCheck(MemberDTO memberDTO) throws Exception {
+		return memberUserDAO.getMemberIdCheck(memberDTO);
+	}
 	
 	@Override
 	public int setMemberJoin(MemberDTO memberDTO, MultipartFile photo, HttpSession session) throws Exception {
@@ -119,9 +123,5 @@ public class MemberUserService implements MemberService {
 		return memberUserDAO.setMemberDelete(memberDTO);
 	}
 	
-	@Override
-	public long getMemberIdCheck(MemberDTO memberDTO) throws Exception {
-		return memberUserDAO.getMemberIdCheck(memberDTO);
-	}
-	
+
 }

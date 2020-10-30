@@ -1,5 +1,7 @@
 package com.choa.s4.member;
 
+import com.choa.s4.member.memberFile.MemberFileDTO;
+
 public class MemberDTO {
 	
 	private long num;
@@ -7,6 +9,7 @@ public class MemberDTO {
 	private String pw;
 	private String name;
 	private String email;
+	private MemberFileDTO memberFileDTO;
 	
 	
 	public long getNum() {
@@ -15,29 +18,40 @@ public class MemberDTO {
 	public void setNum(long num) {
 		this.num = num;
 	}
+	
 	public String getId() {
 		return id;
 	}
 	public void setId(String id) {
 		this.id = id;
 	}
+	
 	public String getPw() {
 		return pw;
 	}
 	public void setPw(String pw) {
 		this.pw = pw;
 	}
+	
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
+	
 	public String getEmail() {
 		return email;
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public MemberFileDTO getMemberFileDTO() {
+		return memberFileDTO;
+	}
+	public void setMemberFileDTO(MemberFileDTO memberFileDTO) {
+		this.memberFileDTO = memberFileDTO;
 	}
 	
 }
