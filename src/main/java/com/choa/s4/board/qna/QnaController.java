@@ -171,8 +171,7 @@ public class QnaController {
 		boolean result = qnaService.summernoteDelete(file, session);
 		
 		mv.addObject("msg", result);
-		mv.setViewName("common/ajaxResult");
-		
+		mv.setViewName("common/ajaxResult");		
 		return mv;
 	}
 	
