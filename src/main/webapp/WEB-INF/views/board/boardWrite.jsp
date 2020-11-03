@@ -7,6 +7,10 @@
 <meta charset="UTF-8">
 <title>Write</title>
 <c:import url="../template/bootStrap.jsp"></c:import>
+<!-- include summernote css/js -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+
 <style type="text/css">
 	#add {
 		display: none;
@@ -17,6 +21,13 @@
 		cursor: pointer;
 	}
 </style>
+<!-- HTMl 코드가 뿌려지기 전에 Script를 적용하려면 $(document).ready(function() { 사용해야 함
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#summernote').summernote();
+	});
+</script>
+ -->
 </head>
 <body>
 <c:import url="../template/header.jsp"></c:import>
@@ -61,7 +72,57 @@
 
 <script type="text/javascript">
 	var count = 0;
-
+	
+	$('#contents').summernote({
+		height: 300,
+		callbacks: {
+			onImageUpload: function(files, editor, welEditable) {	//files 는 배열
+				var formData = new FormData();			//가상의 form 태그 작성 - 안에 있는 것을 데이터로 만듦
+				formData.append('file', files[0]);		//파라미터 이름 file
+				
+				$.ajax({
+					data: formData,
+					type: "POST",
+					url: 'summernote',
+					cache: false,
+					contentType: false,
+					enctype: 'multipart/form-data',
+					processData: false,
+					success:function(data){
+						data = data.trim();
+						$("#contents").summernote('editor.insertImage', data);
+					}
+				})
+			}, //upload End
+			
+			onMediaDelete: function(files) {
+				var fileName = $(files[0]).attr("src");
+				console.log("before : " + fileName);
+				//fileName에서 파일명만 구해오기
+				//s4/resources/upload/qna-sdfa-sdfsdf_iu1.jpg
+				fileName = fileName.substring( fileName.lastIndexOf("\\") +1 );
+				console.log("after : " + fileName);
+				
+				$.ajax({
+					type: "POST",
+					url: "./summernoteDelete",
+					data: {
+						file: fileName
+					},
+					success: function(data) {
+						alert(data);
+					}
+				});
+			} //delete End
+			
+		} //callbacks End
+	});
+	
+	$('#btn').click(function() {
+		var contents = $('#contents').summernote('code');
+		alert(contents);
+	});
+	
 	$("#fileAdd").click(function() {
 		if(count < 5) {
 			var add = $("#add").html().trim();

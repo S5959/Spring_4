@@ -1,5 +1,6 @@
 package com.choa.s4.board.qna;
 
+import java.io.File;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -25,6 +26,7 @@ public class QnaController {
 	private QnaService qnaService;	
 
 	
+	//------------------------------------------------------------------------------------------
 	@PostMapping("qnaReply")
 	public ModelAndView setReply(BoardDTO boardDTO) throws Exception {
 		ModelAndView mv = new ModelAndView();
@@ -52,6 +54,9 @@ public class QnaController {
 		return mv;
 	}
 	
+	
+	
+	//------------------------------------------------------------------------------------------
 	@PostMapping("qnaUpdate")
 	public ModelAndView setUpdate(BoardDTO boardDTO) throws Exception {
 		System.out.println("Post Update");
@@ -89,6 +94,9 @@ public class QnaController {
 		return mv;
 	}
 	
+	
+	
+	//------------------------------------------------------------------------------------------
 	@GetMapping("qnaDelete")
 	public ModelAndView setDelete(BoardDTO boardDTO) throws Exception {
 		ModelAndView mv = new ModelAndView();
@@ -108,6 +116,7 @@ public class QnaController {
 	
 	
 	
+	//------------------------------------------------------------------------------------------
 	@GetMapping("qnaSelect")
 	public ModelAndView getOne(BoardDTO boardDTO) throws Exception {
 		ModelAndView mv = new ModelAndView();
@@ -127,6 +136,8 @@ public class QnaController {
 	}
 	
 	
+	
+	//------------------------------------------------------------------------------------------
 	/* 
 	 * 순서
 	 * 1) JSP에서 파일 선택
@@ -150,6 +161,42 @@ public class QnaController {
 	}
 	
 	
+	
+	 
+	//------------------------------------------------------------------------------------------
+	// Summernote
+	@PostMapping("summernoteDelete")
+	public ModelAndView summernoteDelete(String file, HttpSession session) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		boolean result = qnaService.summernoteDelete(file, session);
+		
+		mv.addObject("msg", result);
+		mv.setViewName("common/ajaxResult");
+		
+		return mv;
+	}
+	
+	@PostMapping("summernote")
+	public ModelAndView summernote(MultipartFile file, HttpSession session) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		String fileName = qnaService.summernote(file, session);
+		System.out.println(fileName);
+		
+		String name = session.getServletContext().getContextPath()+File.separator;
+		name = name + "resources" + File.separator + "upload" + File.separator + "qna" + File.separator + fileName;
+		System.out.println("name : " + name);
+		
+		mv.addObject("msg", name);
+		mv.setViewName("common/ajaxResult");
+		
+		return mv;
+	}
+	//------------------------------------------------------------------------------------------
+	
+	
+	
+	//------------------------------------------------------------------------------------------
 	@PostMapping("qnaWrite")
 	public ModelAndView setInsert(BoardDTO boardDTO, MultipartFile[] files, HttpSession session) throws Exception {
 		//NoticeDTO noticeDTO 로 파라미터 받아와도 상관없음
@@ -183,6 +230,9 @@ public class QnaController {
 		return mv;
 	}
 	
+	
+	
+	//------------------------------------------------------------------------------------------
 	//@RequestMapping(value="qnaList")
 	@GetMapping("qnaList")
 	public ModelAndView getList(Pager pager) throws Exception {
@@ -201,4 +251,6 @@ public class QnaController {
 		
 		return mv;
 	}
+	
+	
 }

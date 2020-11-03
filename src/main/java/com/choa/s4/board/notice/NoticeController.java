@@ -134,13 +134,14 @@ public class NoticeController {
 	@GetMapping("noticeList")
 	public ModelAndView getList(Pager pager) throws Exception {
 		System.out.println("Controller Notice List");
+		
 		ModelAndView mv = new ModelAndView();
 		List<BoardDTO> ar = noticeService.getList(pager);
 		
 		mv.addObject("board", "notice");
 		mv.addObject("list", ar);
 		mv.addObject("pager", pager);
-		mv.setViewName("board/boardList");		
+		mv.setViewName("board/boardList");
 		
 		return mv;
 	}

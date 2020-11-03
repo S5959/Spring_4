@@ -24,13 +24,13 @@
 	</beans:bean>
 	
 	<!-- beans:been = 객체 생성 = new Class() -->
+	<!-- @Repository("TestDao") 형태로 따로 지정하지 않는 이상 해당 클래스명의 첫글자를 소문자르 바꾼 것이 객체변수명 이다 -->
 	<beans:bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
 		<beans:property name="order" value="0"></beans:property>
 	</beans:bean>
-	<beans:bean class="com.choa.s4.util.FileDown" id="fileDown"></beans:bean>
-	
+	<!-- <beans:bean class="com.choa.s4.util.FileDown" id="fileDown"></beans:bean> -->
+	 
 	<context:component-scan base-package="com.choa.s4" />
-	
-	
+		
 	
 </beans:beans>

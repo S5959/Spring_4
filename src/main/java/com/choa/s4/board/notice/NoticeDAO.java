@@ -18,8 +18,7 @@ public class NoticeDAO implements BoardDAO {
 	private SqlSession sqlSession;
 	private final String NAMESPACE = "com.choa.s4.board.notice.NoticeDAO.";
 
-	
-	
+		
 	public Long getNum() throws Exception {
 		return sqlSession.selectOne(NAMESPACE+"getNum");
 	}
