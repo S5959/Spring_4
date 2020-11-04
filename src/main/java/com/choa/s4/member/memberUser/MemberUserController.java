@@ -1,5 +1,7 @@
 package com.choa.s4.member.memberUser;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,8 +87,27 @@ public class MemberUserController {
 	}
 		
 	@PostMapping("memberLogin")
-	public ModelAndView getMemberLogin(MemberDTO memberDTO, HttpSession session) throws Exception {
+	public ModelAndView getMemberLogin(MemberDTO memberDTO, HttpSession session, String remember, HttpServletResponse response) throws Exception {
 		ModelAndView mv = new ModelAndView();
+		
+		System.out.println("Remember : " + remember);
+		//remember값이 null 이 아니라면 cookie 발행
+		//쿠키의 이름 remember, 벨류는 로그인 시 ID
+		if(remember != null) {
+			Cookie cookie = new Cookie("remember", memberDTO.getId());
+			cookie.setDomain("/member/memberLogin");
+			response.addCookie(cookie);
+		} else {
+			//방법1 - 값을 아무것도 넣지 말고 전달
+			Cookie cookie = new Cookie("remember", "");
+			cookie.setDomain("/cookie/showCookie");
+			//방법2 - 아예 쿠키 생명을 0으로 강제변환
+			cookie.setMaxAge(0);
+			
+			response.addCookie(cookie);
+		}
+		
+		
 		System.out.println("Login ID : " + memberDTO.getId());
 		System.out.println("Login PW : " + memberDTO.getPw());
 		memberDTO = memberUserService.getMemberLogin(memberDTO);
