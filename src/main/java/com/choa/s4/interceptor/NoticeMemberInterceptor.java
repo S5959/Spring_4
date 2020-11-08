@@ -13,21 +13,20 @@ import com.choa.s4.member.MemberDTO;
 @Component
 public class NoticeMemberInterceptor extends HandlerInterceptorAdapter {
 
-	//NoticeList, NoticeSelect는 누구나 통과
-	//나머지 로그인 한 사람 중 admin만 통과
+	//NoticeList, NoticeSelect 는 누구나 통과
+	//나머지 로그인 한 사람 중에 admin만 통과
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		System.out.println("Controller 진입 전");
 		
 		HttpSession session = request.getSession();
 		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
 		
 		boolean check = false;
-		if(memberDTO != null && memberDTO.getId().equals("admin")) {
+		if(memberDTO.getId().equals("admin")) {
 			check = true;
-		} else {
+		} else if(!memberDTO.getId().equals("admin") || memberDTO == null) {			
 			request.setAttribute("msg", "권한이 필요합니다.");
 			request.setAttribute("path", "../member/memberLogin");
 			

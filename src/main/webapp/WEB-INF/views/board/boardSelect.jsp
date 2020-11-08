@@ -46,9 +46,7 @@
 		var num = $(this).attr("title");
 		location.href="./${board}Delete?num="+num;
 	});
-
 </script>
-
 
 </body>
 </html>

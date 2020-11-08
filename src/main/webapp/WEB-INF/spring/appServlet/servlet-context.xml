@@ -29,20 +29,21 @@
 		<beans:property name="order" value="0"></beans:property>
 	</beans:bean>
 	<!-- <beans:bean class="com.choa.s4.util.FileDown" id="fileDown"></beans:bean> -->
-	 
-	<context:component-scan base-package="com.choa.s4" />
+	
 	
 	<!-- Interceptor -->
-	<!-- <beans:bean class="com.choa.s4.interceptor.QnaInterceptor" id="qnaInterceptor"> </beans:bean> -->
+	<!-- 참조변수명 : 클래스명의 첫글자를 소문자로 바꾼 것 -->
 	<interceptors>
 		<interceptor>
 			<mapping path="/qna/*"/>
 			<mapping path="/notice/*"/>
-			<beans:ref bean="qnaIntercepter"/>
+			<beans:ref bean="qnaInterceptor"/>
 		</interceptor>
 		
 		<interceptor>
 			<mapping path="/qna/*"/>
+			<mapping path="/member/memberPage"/>
+			<!-- Interceptor 에서 제외할 URL -->
 			<exclude-mapping path="/qna/qnaList"/>
 			<beans:ref bean="qnaMemberInterceptor"/>
 		</interceptor>
@@ -53,11 +54,14 @@
 			<exclude-mapping path="/notice/noticeSelect"/>
 			<beans:ref bean="noticeMemberInterceptor"/>
 		</interceptor>
-
+		
 		<interceptor>
 			<mapping path="/qna/qnaUpdate"/>
 			<beans:ref bean="qnaUpdateInterceptor"/>
 		</interceptor>
 	</interceptors>
+	
+		
+	<context:component-scan base-package="com.choa.s4" />
 	
 </beans:beans>

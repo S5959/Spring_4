@@ -63,7 +63,7 @@ public class QnaController {
 		ModelAndView mv = new ModelAndView();
 		
 		int result = qnaService.setUpdate(boardDTO);
-		System.out.println(result);
+		System.out.println("result : " + result);
 		String msg = "Update Fail";
 		if(result > 0) {
 			msg = "Update Success";
@@ -81,6 +81,7 @@ public class QnaController {
 		ModelAndView mv = new ModelAndView();
 		
 		boardDTO = qnaService.getOne(boardDTO);
+		
 		if(boardDTO != null) {
 			mv.addObject("board", "qna");
 			mv.addObject("dto", boardDTO);

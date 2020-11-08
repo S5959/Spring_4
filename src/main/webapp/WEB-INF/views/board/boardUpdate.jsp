@@ -16,7 +16,7 @@
 
 <div class="container">
 	<h2>${board} Update Form</h2>
-	<form action="./${board}Update" method="post">
+	<form action="./${board}Update" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="num" value="${dto.num}">
   	
 		<div class="form-group">
@@ -31,8 +31,8 @@
     
 		<div class="form-group">
 			<label for="contents">Contents:</label>
-			<div class="form-control" id="contents" title="${dto.contents}"></div>
-			<!-- <textarea class="form-control" rows="10" id="contents" name="contents">${dto.contents}</textarea> -->
+			<!-- <div class="form-control" id="contents" title="${dto.contents}" name="contents"></div> -->
+			<textarea class="form-control" rows="10" id="contents" name="contents">${dto.contents}</textarea>
 		</div>	
     
 		<button type="submit" class="btn btn-default">Update</button>

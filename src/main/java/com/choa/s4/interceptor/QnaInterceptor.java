@@ -3,9 +3,11 @@ package com.choa.s4.interceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+@Component
 public class QnaInterceptor extends HandlerInterceptorAdapter {
 	
 	@Override
@@ -14,7 +16,7 @@ public class QnaInterceptor extends HandlerInterceptorAdapter {
 		System.out.println("Controller 진입 전");
 		return super.preHandle(request, response, handler);
 	}
-	
+
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
@@ -25,7 +27,12 @@ public class QnaInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
 			throws Exception {
-		System.out.println("JSP(View) 렌더링 후 (=제작 후 나가기 전)");
+		System.out.println("JSP(View) 렌더링 후");
 		super.afterCompletion(request, response, handler, ex);
 	}
+	
 }
+
+
+
+
