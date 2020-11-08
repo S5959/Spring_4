@@ -23,10 +23,23 @@ public class NoticeMemberInterceptor extends HandlerInterceptorAdapter {
 		HttpSession session = request.getSession();
 		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
 		
+		System.out.println("NMI : " + memberDTO);
+				
+		
+		//로그인 하지 않은 경우
+		//NullPointException 발생으로 따로 빼둠 (20.11.08)
+		if(memberDTO == null) {
+			request.setAttribute("msg", "권한이 필요합니다.");
+			request.setAttribute("path", "../member/memberLogin");
+			
+			RequestDispatcher view = request.getRequestDispatcher("../WEB-INF/views/common/result.jsp");
+			view.forward(request, response);
+		}
+		
 		boolean check = false;
 		if(memberDTO.getId().equals("admin")) {
 			check = true;
-		} else if(!memberDTO.getId().equals("admin") || memberDTO == null) {			
+		} else {			
 			request.setAttribute("msg", "권한이 필요합니다.");
 			request.setAttribute("path", "../member/memberLogin");
 			
