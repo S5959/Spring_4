@@ -25,7 +25,6 @@ public class QnaMemberInterceptor extends HandlerInterceptorAdapter {
 		if(obj != null) {
 			check = true;
 		} else {
-			System.out.println("로그인이 안되어있음");
 			response.sendRedirect("../member/memberLogin");
 		}
 		

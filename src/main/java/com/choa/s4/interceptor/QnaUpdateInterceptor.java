@@ -25,11 +25,9 @@ public class QnaUpdateInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		System.out.println("Qna Update Interceptor - Pre");
-		
+		System.out.println("Qna Update Interceptor");
 		//글 작성자는 본인글만 확인 가능
 		long num = Long.parseLong(request.getParameter("num"));
-		System.out.println("num : " + num);
 		
 		BoardDTO boardDTO = new BoardDTO();
 		boardDTO.setNum(num);
